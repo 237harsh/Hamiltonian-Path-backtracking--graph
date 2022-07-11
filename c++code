@@ -1,0 +1,40 @@
+ bool dfs(int src, unordered_map<int,int>&vis,vector<vector<int>>&adj,int n)
+    {
+       
+       vis[src]++;
+       
+       if(vis.size()==n)
+       {
+           return true;
+       }
+       for(auto x:adj[src])
+       {
+           if(vis.find(x)==vis.end())
+           {
+               if(dfs(x,vis,adj,n))return true;
+           }
+       }
+       vis.erase(src);
+       return false;
+    }
+    bool check(int n,int m,vector<vector<int>>gr)
+    {
+        unordered_map<int,int>vis;
+        int f=0;
+        vector<vector<int>>adj(n+1);
+        for(int i=0;i<gr.size();i++)
+        {
+            int u=gr[i][0],v=gr[i][1];
+            adj[u].push_back(v);
+             adj[v].push_back(u);
+        }
+        
+        
+        for(int i=1;i<=n;i++)
+     if(dfs(i,vis,adj,n))return true;
+       
+       return false;
+    }
+};
+
+https://practice.geeksforgeeks.org/problems/hamiltonian-path2522/1/?page=1&category[]=Backtracking&sortBy=submissions#
